@@ -1,0 +1,6 @@
+type Company {
+  id: Int!
+  parentCompanyId: Int!
+  parentCompany: Company
+  name: String!
+}

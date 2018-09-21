@@ -1,0 +1,23 @@
+type Song {
+  id: Int!,
+  title: String!,
+}
+
+type Query {
+    song(id: Int!): song,
+    songs: [song]
+}
+
+type song {
+  id: Int!,
+  title: String!,
+}
+
+type SongInput {
+  id: Int!,
+  title: String!,
+}
+
+type Mutation {
+  addSong(id: Int, title: String ): SongInput
+}

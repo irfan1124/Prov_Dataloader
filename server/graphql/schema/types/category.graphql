@@ -1,0 +1,6 @@
+type Category {
+  id: Int!
+  name: String!
+  parentCategoryId: Int
+  parentCategory: Category
+}

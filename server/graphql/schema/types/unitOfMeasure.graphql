@@ -1,0 +1,5 @@
+
+type UnitOfMeasure {
+  id: Int!
+  name: String!
+}

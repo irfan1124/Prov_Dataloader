@@ -1,0 +1,17 @@
+type CommodityData {
+    CommodityDataID: Int!
+    CommodityDataGUID: GUID!
+    CommodityID: Int
+    Encoding: String!
+    Name: String!
+    Value: String!
+    CreatorUserID: Int!
+    Created: DateTime!
+    Updated: DateTime!
+    IsDeleted: Int!
+    Commodity: Commodity
+}
+
+type Query {
+    CommoditiesData: [CommodityData]
+}

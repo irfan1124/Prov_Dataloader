@@ -1,0 +1,4 @@
+type RootQueryType {
+    song: Song
+    lyric: Lyric
+}
