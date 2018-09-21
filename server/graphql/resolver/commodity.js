@@ -1,35 +1,18 @@
 import { uuidToBuffer, bufferToUUID } from '../../helper/uuid/index'
+import { findCommodityById, getAllCommodities } from '../../dataAccess/commodity';
+import { findCommodityDataByCommodityId } from '../../dataAccess/commodityData';
 import joinMonster from 'join-monster';
 import { map, assign } from 'lodash';
 
 export default {
     Query: {
-        Commodity: (parent, args, { knex, dialect }, info) => {
-            console.log("args", args)
-            return knex("Commodity")
-                .select(
-                    knex.raw(
-                        "uuid_from_bin(??) AS CommodityGUID, CommodityID, LocalName, IsDeleted",
-                        ["Commodity.CommodityGUID"]
-                    )
-                )
-                .where({ CommodityID: args.CommodityID })
-                .then(res => {
-                    return Object.assign({}, JSON.parse(JSON.stringify(res)))[0];
-                })
+        Commodity: async (parent, args, { knex, dialect }, info) => {
+            let result = await findCommodityById(args, knex);
+            return result;
         },
-        Commodities: (parent, args, { knex, dialect }, info) => {
-            return knex("Commodity")
-                .select(
-                    knex.raw(
-                        "uuid_from_bin(??) AS CommodityGUID, CommodityID, LocalName, IsDeleted",
-                        ["Commodity.CommodityGUID"]
-                    )
-                )
-                .then(res => {
-                    console.log(res);
-                    return Object.assign([], JSON.parse(JSON.stringify(res)));
-                })
+        Commodities: async (parent, args, { knex, dialect }, info) => {
+            let result = await getAllCommodities(knex);
+            return result;
         },
     },
     Mutation: {
@@ -58,9 +41,11 @@ export default {
         }
     },
     Commodity: {
-        CommoditiesData: (parent, args, { knex, dialect }, info) => {
-            console.log('commodityData resolver', parent.CommodityID)
-            return [{Value: 'asdsa'}];
+        CommoditiesData: (parent, args, { dataLoader }, info) => {
+            let commodityId = parent.CommodityID;
+            //call a data loader which gets commodityData by commodityID
+            return dataLoader.findCommodityDataByCommodityIds.load(commodityId);
+            //return findCommodityDataByCommodityId(commodityId, knex);
         }
         //     commodityGUID: ({ commodityGUID }, args, ctx, info) =>  {
         //         console.log('convert BIN to GUID', commodityGUID.toString());

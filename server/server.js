@@ -11,7 +11,8 @@ const typeDefs = require('./graphql/schema').default;
 const resolvers = require('./graphql/index').default
 import { initializeFirebaseApp, loginWithFirebase, verifyToken, addScopeToReq, revokeRefreshToken, getFirebaseUser } from './auth/firebase-auth';
 import { joinMonsterMetadata } from './graphql/schema/joinMonsterMetadata';
-const knex = require('knex')(require('./db/config/knexConfig'))
+const knex = require('knex')(require('./db/config/knexConfig'));
+import { dataLoader } from './graphql/dataLoader/';
 
 const app = express();
 
@@ -81,7 +82,8 @@ const server = new ApolloServer({
   schema,
   context: {
     knex,
-    dialect
+    dialect,
+    dataLoader: dataLoader()
   }
 });
 
