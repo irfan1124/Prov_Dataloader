@@ -1,5 +1,6 @@
 type Document {
   DocumentID: Int!
+  DocumentGUID: GUID!
   DocumentDefinitionID: Int!
   Reference: String!
   Flagged: Int!

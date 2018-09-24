@@ -1,13 +1,11 @@
 import { uuidToBuffer, bufferToUUID } from '../../helper/uuid/index'
-import { findCommodityById, getAllCommodities } from '../../dataAccess/commodity';
-import { findCommodityDataByCommodityId } from '../../dataAccess/commodityData';
-import joinMonster from 'join-monster';
+import { findCommodityByIDs, getAllCommodities, findCommodityDocumentsByIDs } from '../../dataAccess/commodity';
 import { map, assign } from 'lodash';
 
 export default {
     Query: {
         Commodity: async (parent, args, { knex, dialect }, info) => {
-            let result = await findCommodityById(args, knex);
+            let result = await findCommodityByIDs(args, knex);
             return result;
         },
         Commodities: async (parent, args, { knex, dialect }, info) => {
@@ -44,8 +42,14 @@ export default {
         CommoditiesData: (parent, args, { dataLoader }, info) => {
             let commodityId = parent.CommodityID;
             //call a data loader which gets commodityData by commodityID
-            return dataLoader.findCommodityDataByCommodityIds.load(commodityId);
+            return dataLoader.findCommodityDataByCommodityIDs.load(commodityId);
             //return findCommodityDataByCommodityId(commodityId, knex);
+        },
+        Documents:  (parent, args, { dataLoader }, info ) => {
+            let commodityId = parent.CommodityID;
+            console.log('select query of Documents with commodityId ', commodityId);
+            let result = dataLoader.findCommodityDocumentsByCommodityIDs.load(commodityId);
+            return result;
         }
         //     commodityGUID: ({ commodityGUID }, args, ctx, info) =>  {
         //         console.log('convert BIN to GUID', commodityGUID.toString());

@@ -1,10 +1,13 @@
 import DataLoader from 'dataloader';
 
-import { findCommodityDataByCommodityIds } from '../../dataAccess/commodityData';
+import { findCommodityDataByCommodityIDs } from '../../dataAccess/commodityData';
+import { findCommodityDocumentsByIDs } from '../../dataAccess/commodity';
+
 
 const dataLoader = () => (
     {
-        findCommodityDataByCommodityIds: new DataLoader(findCommodityDataByCommodityIds, { cache: false })
+        findCommodityDataByCommodityIDs: new DataLoader(findCommodityDataByCommodityIDs, { cache: false }),
+        findCommodityDocumentsByCommodityIDs: new DataLoader(findCommodityDocumentsByIDs),
     }
 );
 

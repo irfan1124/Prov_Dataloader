@@ -13,6 +13,7 @@ import { initializeFirebaseApp, loginWithFirebase, verifyToken, addScopeToReq, r
 import { joinMonsterMetadata } from './graphql/schema/joinMonsterMetadata';
 const knex = require('knex')(require('./db/config/knexConfig'));
 import { dataLoader } from './graphql/dataLoader/';
+import depthLimit from 'graphql-depth-limit';
 
 const app = express();
 
@@ -80,6 +81,7 @@ const dialect = { dialect: 'mysql' };
 const server = new ApolloServer({
   // These will be defined for both new or existing servers
   schema,
+  validationRules: [ depthLimit(10) ],
   context: {
     knex,
     dialect,

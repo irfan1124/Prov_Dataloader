@@ -1,6 +1,6 @@
 const knex = require('knex')(require('../db/config/knexConfig'));
 
-const findCommodityDataById = (args, knex) => {
+const findCommodityDataByID = (args, knex) => {
     return knex("CommodityData")
         .select(
             knex.raw(
@@ -15,8 +15,8 @@ const findCommodityDataById = (args, knex) => {
 }
 
 
-const findCommodityDataByCommodityIds = async (commodityIDs) => {
-    console.log('******* SELECT CommodityData query *******')
+const findCommodityDataByCommodityIDs = async (commodityIDs) => {
+    console.log('******* SELECT CommodityData query ******* ', commodityIDs)
     let result = await knex.table("CommodityData")
         .whereIn('CommodityID', commodityIDs).select()
         .then(rows => commodityIDs.map(id => rows.filter(x => x.CommodityID === id)));
@@ -24,6 +24,6 @@ const findCommodityDataByCommodityIds = async (commodityIDs) => {
 }
 
 module.exports = {
-    findCommodityDataById,
-    findCommodityDataByCommodityIds,
+    findCommodityDataByID,
+    findCommodityDataByCommodityIDs,
 }

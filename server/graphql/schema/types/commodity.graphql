@@ -5,6 +5,7 @@ type Commodity {
     Created: DateTime,
     CommodityGUID: GUID,
     CommoditiesData: [CommodityData!]!,
+    Documents: [Document]
 }
 
 type Query {
