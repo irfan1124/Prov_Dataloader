@@ -13,5 +13,7 @@ type CommodityData {
 }
 
 type Query {
+    CommodityData(CommodityDataID: Int!): CommodityData
     CommoditiesData: [CommodityData]
+    Commodity: Commodity
 }

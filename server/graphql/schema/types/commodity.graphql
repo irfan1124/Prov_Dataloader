@@ -1,16 +1,20 @@
 type Commodity {
-    CommodityID: Int,
-    LocalName: String,
-    Quantity: Int,
-    Created: DateTime,
-    CommodityGUID: GUID,
-    CommoditiesData: [CommodityData!]!,
+    CommodityID: Int
+    CategoryID: Int
+    OwnerCompanyID: Int
+    LocalName: String
+    Quantity: Int
+    UnitOfMeasureID: Int
+    Created: DateTime
+    CommodityGUID: GUID
+    CommoditiesData: [CommodityData!]!
     Documents: [Document]
+    IsDeleted: Boolean!
 }
 
 type Query {
-    Commodity(CommodityID: Int!): Commodity,
-    Commodities: [Commodity],
+    commodity(CommodityID: Int!): Commodity,
+    commodities: [Commodity],
 }
 
 input CommodityInput {
@@ -38,6 +42,6 @@ input CommodityCommodityDataInput {
 }
 
 type Mutation {
-    CreateCommodity(input: CommodityInput) : Commodity,
-    CreateCommoditywithCommodityData(input: CommodityCommodityDataInput): Boolean,
+    createCommodity(input: CommodityInput) : Commodity,
+    createCommoditywithCommodityData(input: CommodityCommodityDataInput): Boolean,
 }

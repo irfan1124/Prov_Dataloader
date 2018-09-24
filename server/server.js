@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 import { ApolloServer } from 'apollo-server-express';
 const bodyParser = require('body-parser');
-import { makeExecutableSchema } from 'graphql-tools'
+import { makeExecutableSchema } from 'graphql-tools';
 import joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
 
 const typeDefs = require('./graphql/schema').default;
@@ -74,6 +74,7 @@ app.get('/user', verifyToken, addScopeToReq, guard.check(['user:read']), errorHa
   res.json({ success: true })
 })
 
+//graphql-tools will create on set of typedefs and resolvers, will resolve type name collision
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 joinMonsterAdapt(schema, joinMonsterMetadata);//
 const dialect = { dialect: 'mysql' };

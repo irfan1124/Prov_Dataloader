@@ -7,7 +7,7 @@ import { findCommodityDocumentsByIDs } from '../../dataAccess/commodity';
 const dataLoader = () => (
     {
         findCommodityDataByCommodityIDs: new DataLoader(findCommodityDataByCommodityIDs, { cache: false }),
-        findCommodityDocumentsByCommodityIDs: new DataLoader(findCommodityDocumentsByIDs),
+        findCommodityDocumentsByCommodityIDs: new DataLoader(findCommodityDocumentsByIDs, { cache: false }),
     }
 );
 
