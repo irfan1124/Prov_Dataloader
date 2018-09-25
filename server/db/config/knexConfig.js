@@ -14,5 +14,6 @@ module.exports = {
         return next();
       }
     },
-    pool: { min: 0, max: 7 }
+    pool: { min: 0, max: 7 },
+    debug: process.env.NODE_ENV == 'development' ? true : false,
 };
